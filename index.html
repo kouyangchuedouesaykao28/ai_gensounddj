@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon DJ — Web Audio Mixer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>🎛 NEON<span>DJ</span></h1>
+  <div class="master-zone">
+    <canvas id="spectrum" width="170" height="58"></canvas>
+    <div class="cross-zone">
+      <span class="xf-label xf-a">A</span>
+      <input id="crossfader" type="range" min="0" max="100" value="50">
+      <span class="xf-label xf-b">B</span>
+    </div>
+    <label class="master-vol">MASTER
+      <input id="masterVol" type="range" min="0" max="100" value="80">
+    </label>
+    <div class="rec-zone">
+      <button id="recBtn" class="btn rec">● REC</button>
+      <span id="recTime" class="rec-time"></span>
+    </div>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="deck" id="deckA"></section>
+
+  <section class="center">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>🥁 BEAT GENERATOR</h2>
+        <div class="seq-controls">
+          <button class="btn primary" id="seqPlay">▶ START</button>
+          <label class="inline">BPM
+            <input type="range" id="bpm" min="40" max="220" value="120">
+            <span id="bpmVal" class="val">120</span>
+          </label>
+          <label class="inline">VOL
+            <input type="range" id="drumVol" min="0" max="100" value="85">
+          </label>
+          <label class="inline">BASS
+            <select id="bassNote">
+              <option value="55">A1</option>
+              <option value="65.41" selected>C2</option>
+              <option value="82.41">E2</option>
+              <option value="98">G2</option>
+              <option value="110">A2</option>
+              <option value="130.81">C3</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="preset-row">
+        <span class="presets-label">PRESETS</span>
+        <button class="btn preset" data-preset="house">HOUSE</button>
+        <button class="btn preset" data-preset="hiphop">HIP-HOP</button>
+        <button class="btn preset" data-preset="techno">TECHNO</button>
+        <button class="btn preset subtle" data-preset="clear">CLEAR</button>
+      </div>
+      <div id="seqRows"></div>
+    </section>
+
+    <section class="panel" id="aiPanel">
+      <div class="panel-head">
+        <h2>🤖 AI COMPOSER</h2>
+        <div class="seq-controls">
+          <label class="inline">STYLE
+            <select id="aiStyle">
+              <option value="house">House</option>
+              <option value="hiphop">Hip-Hop</option>
+              <option value="techno">Techno</option>
+              <option value="dnb">Drum &amp; Bass</option>
+              <option value="synthwave">Synthwave</option>
+              <option value="trap">Trap</option>
+            </select>
+          </label>
+          <label class="inline">INTENSITY <input type="range" id="aiDensity" min="0" max="100" value="50"></label>
+          <label class="inline evolve-t"><input type="checkbox" id="aiEvolve"> EVOLVE</label>
+        </div>
+      </div>
+      <div class="ai-actions">
+        <button class="btn primary" id="aiGenerate">✨ GENERATE ALL</button>
+        <button class="btn" id="aiMelody">🎵 REGEN MELODY</button>
+        <button class="btn preset subtle" id="aiReset">RESET LEARNING</button>
+      </div>
+      <p class="hint" id="aiHint">The composer studies every pattern you edit and steers future generations toward how you play.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>🎹 SYNTH KEYS</h2>
+        <div class="seq-controls">
+          <label class="inline">WAVE
+            <select id="synthWave">
+              <option value="sawtooth" selected>Saw</option>
+              <option value="square">Square</option>
+              <option value="triangle">Tri</option>
+              <option value="sine">Sine</option>
+            </select>
+          </label>
+          <label class="inline">FILTER <input type="range" id="synthCut" min="0" max="100" value="70"></label>
+          <label class="inline">VOL <input type="range" id="synthVol" min="0" max="100" value="60"></label>
+        </div>
+      </div>
+      <div id="synthKeys" class="keys"></div>
+      <p class="hint">Play with mouse, or keyboard keys <b>Z S X C D V G B H N J M</b> (C4→B4)</p>
+    </section>
+  </section>
+
+  <section class="deck" id="deckB"></section>
+</main>
+
+<footer>
+  SHORTCUTS &nbsp;·&nbsp; <b>Q</b> play deck A &nbsp;·&nbsp; <b>A</b> cue deck A &nbsp;·&nbsp;
+  <b>P</b> play deck B &nbsp;·&nbsp; <b>L</b> cue deck B &nbsp;·&nbsp; <b>R</b> record the mix &nbsp;·&nbsp; drag & drop audio files onto a deck
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
